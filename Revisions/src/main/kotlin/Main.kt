@@ -3,15 +3,15 @@ package org.example
 fun main() {
 //    _01_printHelloWorld()
 
-//    _2_testValAndVar()
+    _2_testValAndVar()
 
-//    _3_testBasicTypes()
+    _3_testBasicTypes()
 
-//    _4_testRanges()
+    _4_testRanges()
 
-//    _5_testIfsAndWhens()
+    _5_testIfsAndWhens()
 
-//    _6_testCollections()
+    _6_testCollections()
 
 //    _7_testLoops()
 
