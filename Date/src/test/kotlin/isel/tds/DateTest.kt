@@ -1,7 +1,6 @@
 package isel.tds
 
-import org.example.isel.tds.Date
-import org.example.isel.tds.isLeapYear
+import org.example.isel.tds.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
@@ -75,6 +74,97 @@ class DateTest{
 
     @Test
     fun `test invalid year`(){
+        assertFailsWith<IllegalArgumentException> { Date(1) }
+    }
+    @Test
+    fun `test invalid month`(){
         assertFailsWith<IllegalArgumentException> { Date(2020, 0) }
     }
+    @Test
+    fun `test invalid day`(){
+        assertFailsWith<IllegalArgumentException> { Date(2023, 2, 29) }
+        assertFailsWith<IllegalArgumentException> { Date(2020, 1, 32) }
+        assertFailsWith<IllegalArgumentException> { Date(2020, 12, -1) }
+        assertFailsWith<IllegalArgumentException> { Date(2020, 12, 0) }
+    }
+
+    @Test
+    fun addDaysToDateTest(){
+        val sut = Date(2024, 9, 20) + 5
+        assertEquals(2024, sut.year)
+        assertEquals(9, sut.month)
+        assertEquals(25, sut.day)
+    }
+    @Test
+    fun addDateToDaysTest(){
+        val sut = 5 + Date(2024, 9, 20)
+        assertEquals(2024, sut.year)
+        assertEquals(9, sut.month)
+        assertEquals(25, sut.day)
+    }
+
+    @Test
+    fun addDaysToDatePassingTheMonthTest(){
+        val sut = Date(2024, 9, 20) + 15
+        assertEquals(2024, sut.year)
+        assertEquals(10, sut.month)
+        assertEquals(5, sut.day)
+    }
+
+    @Test
+    fun addDaysToDatePassingTheYearTest(){
+        val sut = Date(2024, 9, 20) + 105
+        assertEquals(2025, sut.year)
+        assertEquals(1, sut.month)
+        assertEquals(3, sut.day)
+    }
+
+    @Test fun testEqualityOfDates(){
+        val date1 = Date(2024, 9, 20)
+        val date2 = date1//Date(2024, 9, 20)
+        assertEquals(date1, date1)
+        assertEquals(date1, date2)
+
+        assertTrue( date1 == date2)
+        assertTrue( date1 === date2)
+    }
+
+    @Test fun `Tests inequality between dates and dates with another type`() {
+        val sut = Date(2023, 3, 2)
+        assertNotEquals(sut, Date(2023, 4, 1))
+        val any :Int = 2023
+        assertNotEquals(sut, any)  // Compare with Int
+        val dn :Date? = null
+        assertNotEquals(sut, dn)   // Compare with null
+        assertNotEquals(dn, sut)   // Compare null with Date
+    }
+
+    @Test fun `Coherence between equals and hashCode`() {
+        val sut = Date(2023, 3, 2)
+        assertEquals(sut.hashCode(), sut.hashCode())
+        val d2 = Date(2023, 3, 2)
+        assertEquals(sut, d2)
+        assertEquals(sut.hashCode(), d2.hashCode()) // Must be the same
+        val d3 = Date(2023, 4, 2)
+        assertNotEquals(sut, d3)
+        assertNotEquals(sut.hashCode(), d3.hashCode()) // Should be different
+    }
+
+
+    @Test fun `Compare dates`() {
+        val sut = Date(2023, 3, 2)
+        assertTrue(sut < Date(2023, 3, 4))
+        assertTrue(Date(2023, 4, 2) >= sut)
+        assertTrue(sut <= Date(2024, 3, 2))
+        assertTrue(sut > Date(2023, 3, 1))
+    }
+
+    @Test fun `String representation of a date`() {
+        val sut = Date(2023, 3, 2)
+        assertEquals("2023-03-02", sut.toString())
+    }
+
+
+
 }
+

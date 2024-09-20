@@ -16,12 +16,51 @@ class Date(val year: Int, val month:Int=1, val day:Int=1) {
 //    val isLeapYear: Boolean = year%4 == 0 && year%100 != 0 || year%400 == 0
 //    val isLeapYear: Boolean
 //        get() = year%4 == 0 && year%100 != 0 || year%400 == 0
-    private val daysOfMonth = listOf(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+
+    override operator fun equals(other: Any?) =
+        other is Date
+                && year == other.year && month == other.month && day == other.day
+
+    override fun hashCode() = (year * 12 + month) * 31 + day
+
+    override fun toString() = "$year-%02d-%02d".format(month, day)
+
     val lastDayOfMonth: Int
         get() =
-        if (month==2 && year.isLeapYear()) 29
-        else daysOfMonth[month-1]
+            if (month==2 && year.isLeapYear()) 29
+            else daysOfMonth[month-1]
 }
 
 fun Date.isLeapYear() = year.isLeapYear()
 fun Int.isLeapYear() = this%4 == 0 && this%100 != 0 || this%400 == 0
+
+
+private val daysOfMonth = listOf(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+
+val Date.lastDayOfMonth: Int
+    get() =
+        if (month==2 && year.isLeapYear()) 29
+        else daysOfMonth[month-1]
+
+operator fun Date.plus(daysToAdd: Int): Date = this.addDays(daysToAdd)
+operator fun Int.plus(date: Date): Date = date.addDays(this)
+
+private fun Date.addDays(days: Int): Date = when {
+//    day == 20 -> x() //Force an StackOverflowError
+    days + day <= lastDayOfMonth -> Date(year, month, day + days)
+    month < 12 -> Date(year, month + 1, 1).addDays(days - (lastDayOfMonth - day +1))
+    else -> Date(year + 1, 1, 1).addDays(days - ((lastDayOfMonth - day +1)))
+}
+tailrec private fun Date.addDaysTailRec(days: Int): Date = when {
+    days + day <= lastDayOfMonth -> Date(year, month, day + days)
+    month < 12 -> Date(year, month + 1, 1).addDaysTailRec(days - (lastDayOfMonth - day +1))
+    else -> Date(year + 1, 1, 1).addDaysTailRec(days - ((lastDayOfMonth - day +1)))
+}
+
+//fun x(): Date = x() //Force an StackOverflowError
+
+operator fun Date.compareTo(other: Date): Int = when {
+    year != other.year    -> year - other.year
+    month != other.month  -> month - other.month
+    else                  -> day - other.day
+}
