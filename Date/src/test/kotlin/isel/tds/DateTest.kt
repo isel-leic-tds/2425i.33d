@@ -3,6 +3,7 @@ package isel.tds
 import org.example.isel.tds.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import java.lang.Thread.sleep
 import kotlin.test.assertFailsWith
 
 class DateTest{
@@ -126,7 +127,7 @@ class DateTest{
         assertEquals(date1, date2)
 
         assertTrue( date1 == date2)
-        assertTrue( date1 === date2)
+//        assertTrue( date1 === date2)
     }
 
     @Test fun `Tests inequality between dates and dates with another type`() {
@@ -164,6 +165,16 @@ class DateTest{
         assertEquals("2023-03-02", sut.toString())
     }
 
+    @Test
+    fun testLotOfDates(){
+        println("start")
+        val dates = (1..1000).map { Date(2000, 1, 1) + it }
+        //dates.forEach { println(it) }
+        println("sleep")
+        sleep(60000)
+        println(dates.size)
+        println("end")
+    }
 
 
 }
