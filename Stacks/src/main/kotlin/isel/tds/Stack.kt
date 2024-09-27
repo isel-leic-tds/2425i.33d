@@ -28,25 +28,25 @@ class MutableStackWithImmutableList<T> {
 }
 
 //2nd version
-//class MutableStackWithMutableList<T> {
-//    private val elems = mutableListOf<T>()
-//
-//    val top: T get() = elems.last()
-//    fun push(elem: T) { elems.add(elem)}
-//    fun isEmpty(): Boolean = elems.isEmpty()
-//
-//    fun pop(): T {
-//        return elems.removeLast()
-//    }
-//
-//    override fun equals(other: Any?): Boolean {
-//        return other is MutableStackWithMutableList<*> && elems == other.elems;
-//    }
-//
-//    override fun hashCode(): Int {
-//        return elems.hashCode()
-//    }
-//}
+class MutableStackWithMutableList<T> {
+    private val elems = mutableListOf<T>()
+
+    val top: T get() = elems.last()
+    fun push(elem: T) { elems.add(elem)}
+    fun isEmpty(): Boolean = elems.isEmpty()
+
+    fun pop(): T {
+        return elems.removeLast()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return other is MutableStackWithMutableList<*> && elems == other.elems;
+    }
+
+    override fun hashCode(): Int {
+        return elems.hashCode()
+    }
+}
 
 class Stack<T> {
     private class Node<T> (val elem: T, val next: Node<T>?)
