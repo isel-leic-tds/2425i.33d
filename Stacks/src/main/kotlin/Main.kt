@@ -1,11 +1,11 @@
 package org.example
 
-import org.example.isel.tds.Stack
+import org.example.isel.tds.MutableStack
 
 fun main() {
     println("Hello World!")
 
-    val stack = Stack<String>()
+    val stack = MutableStack<String>()
 
     stack.push("A")
     stack.push("B")

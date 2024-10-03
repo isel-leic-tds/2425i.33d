@@ -1,23 +1,23 @@
 package isel.tds
 
-import org.example.isel.tds.Stack
+import org.example.isel.tds.MutableStack
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 
 
-class StackTest{
+class MutableStackTest{
 
     @Test
     fun `empty stack conditions`() {
-        val stk = Stack<String>()
+        val stk = MutableStack<String>()
         assertTrue(stk.isEmpty())
         assertFailsWith<NoSuchElementException> { stk.top }
         assertFailsWith<NoSuchElementException> { stk.pop() }
     }
 
     @Test fun `not empty stack conditions`() {
-        val sut = Stack<String>()
+        val sut = MutableStack<String>()
         sut.push("A")
         assertFalse(sut.isEmpty())
         assertEquals("A", sut.top)
@@ -27,9 +27,9 @@ class StackTest{
 
 
     @Test fun `equality of stacks`() {
-        val sut = Stack<Char>()
+        val sut = MutableStack<Char>()
         sut.push('A'); sut.push('B')
-        val sut2 = Stack<Char>()
+        val sut2 = MutableStack<Char>()
         sut2.push('A'); sut2.push('B')
         assertEquals(sut, sut2)
         assertEquals(sut.hashCode(), sut2.hashCode())
