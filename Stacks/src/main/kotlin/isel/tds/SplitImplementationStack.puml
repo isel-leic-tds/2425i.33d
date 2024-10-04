@@ -1,0 +1,48 @@
+@startuml
+hide empty members
+
+
+interface Iterable<T> {
+   iterator(): Iterator<T>
+}
+
+
+interface Stack<T> {
+   top: T
+   push(elem:T): Stack<T>
+   pop(): Stack<T>
+   isEmpty(): Boolean
+}
+
+
+Iterable <|- Stack
+
+class Node<T> {
+   elem: T
+}
+Node --> "?" Node : next
+class StackEmpty<T> {
+   top: Nothing = throw
+   push(elem:T): StackNotEmpty<T>
+   pop() = throw
+   isEmpty() = true
+   iterator(): Iterator<Nothing>
+}
+
+
+Stack <|.. StackEmpty
+
+
+class StackNotEmpty<T> {
+   top = head.elem
+   push(elem:T): StackNotEmpty<T>
+   pop(): Stack<T>
+   isEmpty() = false
+   iterator(): Iterator<T>
+}
+
+
+Node <-- StackNotEmpty : head
+Stack <|.. StackNotEmpty
+@enduml
+
