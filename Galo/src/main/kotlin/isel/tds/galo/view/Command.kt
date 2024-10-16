@@ -2,6 +2,7 @@ package isel.tds.galo.view
 
 import isel.tds.galo.model.Board
 import isel.tds.galo.model.play
+import isel.tds.galo.model.toPositionOrNull
 
 abstract class Command(val isToFinish: Boolean = false) {
     abstract fun execute(args: List<String>, board: Board?): Board
@@ -11,8 +12,8 @@ object Play : Command() {
     override fun execute(args: List<String>, board: Board?): Board {
         requireNotNull(board) { "Game not started" }
         val arg = requireNotNull(args.firstOrNull()) {"Missing position"}
-        val pos = requireNotNull(arg.toIntOrNull()) { "Invalid pos $arg" }
-
+//        val pos = requireNotNull(arg.toIntOrNull()) { "Invalid pos $arg" }
+        val pos = requireNotNull(arg.toIntOrNull()?.toPositionOrNull()) { "Invalid position $arg" }
         return board.play(pos)
     }
 }

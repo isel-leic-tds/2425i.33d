@@ -8,20 +8,22 @@ object ConsoleApplication {
         val commands = getCommands()
         var board: Board? = null
         while (true) {
-            print("> ")
-            //val cmd = readln().uppercase().split(' ')
             val (cmdName, args) = readCommand()
             val cmd = commands[cmdName]
             if (cmd == null) {
                 println("Invalid command $cmdName")
-            }else{
+            } else try {
                 board = cmd.execute(args, board)
                 board.show()
-                if(cmd.isToFinish) break
+                if (cmd.isToFinish) break
+            } catch (e: IllegalStateException) {
+                println(e.message)
+            } catch (e: IllegalArgumentException) {
+                println("${e.message}\nUse: $cmdName")
+            }catch(e: Exception){
+                println("Error: ${e.message}")
             }
         }
+
     }
-
-
-
 }
