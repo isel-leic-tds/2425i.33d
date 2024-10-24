@@ -2,6 +2,10 @@ package isel.tds.galo.model
 
 @JvmInline
 value class Position private constructor(val index: Int) {
+    val row: Int get() = index / BOARD_SIZE  // row in (0..<BOARD_SIZE)
+    val col: Int get() = index % BOARD_SIZE  // col in (0..<BOARD_SIZE)
+    val backSlash get() = row == col         // Is in principal diagonal \
+    val slash get() = row + col == BOARD_SIZE - 1 // Is in secondary diagonal /
 
     companion object{
         val values = List(BOARD_CELLS){Position(it)}
