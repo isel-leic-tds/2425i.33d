@@ -7,6 +7,8 @@ value class Position private constructor(val index: Int) {
     val backSlash get() = row == col         // Is in principal diagonal \
     val slash get() = row + col == BOARD_SIZE - 1 // Is in secondary diagonal /
 
+    override fun toString() = "$index"
+
     companion object{
         val values = List(BOARD_CELLS){Position(it)}
 

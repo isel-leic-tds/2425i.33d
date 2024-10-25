@@ -60,7 +60,7 @@ const val BOARD_CELLS = BOARD_SIZE * BOARD_SIZE
 typealias Moves =  Map<Position, Player>
 
 sealed class Board( val moves: Moves)
-class BoardRun(moves: Moves, val turn: Player): Board(moves)
+class BoardRun(moves: Moves=emptyMap(), val turn: Player): Board(moves)
 class BoardWin(moves: Moves, val winner: Player): Board(moves)
 class BoardDraw(moves: Moves): Board(moves)
 //class BoardXyz(moves: Moves): Board(moves) // to test sealed class

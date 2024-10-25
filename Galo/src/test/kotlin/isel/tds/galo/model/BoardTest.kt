@@ -6,31 +6,31 @@ import org.junit.jupiter.api.Test
 class BoardTest{
 
 
-        @Test
-        fun `Test can play`() {
-            val sut = Board(
-                cells = listOf(
-                    Player.O, Player.X, Player.O,
-                    Player.X, Player.O, Player.X,
-                    Player.X, null, Player.X
-                )
-            )
-//            assertFalse(sut.canPlay(0))
-//            assertTrue(sut.canPlay(7))
-        }
-
-    @Test
-    fun `Test play`() {
-        val sut = Board(
-            cells = listOf(
-                Player.O, Player.X, Player.O,
-                Player.X, Player.O, Player.X,
-                Player.X, null, Player.X
-            ),
-            turn = Player.O
-        )
-//        assertTrue(sut.play(7.toPositionOrNull()).cells[7] == Player.O)
-    }
+//        @Test
+//        fun `Test can play`() {
+//            val sut = Board(
+//                cells = listOf(
+//                    Player.O, Player.X, Player.O,
+//                    Player.X, Player.O, Player.X,
+//                    Player.X, null, Player.X
+//                )
+//            )
+////            assertFalse(sut.canPlay(0))
+////            assertTrue(sut.canPlay(7))
+//        }
+//
+//    @Test
+//    fun `Test play`() {
+//        val sut = Board(
+//            cells = listOf(
+//                Player.O, Player.X, Player.O,
+//                Player.X, Player.O, Player.X,
+//                Player.X, null, Player.X
+//            ),
+//            turn = Player.O
+//        )
+////        assertTrue(sut.play(7.toPositionOrNull()).cells[7] == Player.O)
+//    }
 
 //        @Test
 //        fun `Test empty Board`() {
