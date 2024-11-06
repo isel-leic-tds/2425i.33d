@@ -11,7 +11,7 @@ class TextFileStorage<Key,Data>(
 
     init {  // Create base folder if it does not exist
         with(basePath) {
-            if (!exists() ) createDirectory()
+            if (!this.exists() ) createDirectory()
             else check( isDirectory() ) { "$name is not a directory" }
         }
     }
