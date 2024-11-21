@@ -17,9 +17,10 @@ import isel.tds.galo.model.Player
 
 @Composable
 fun PlayerView (
-    size: Dp, player: Player?,
+    size: Dp= 100.dp,
+    player: Player?,
     onClick: ()->Unit = {},
-    modifier: Modifier = Modifier.size(100.dp)
+    modifier: Modifier = Modifier.size(size)
 ){
     if(player == null){
         Box( modifier
