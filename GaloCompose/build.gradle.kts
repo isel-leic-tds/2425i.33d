@@ -16,6 +16,9 @@ repositories {
 }
 
 dependencies {
+    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.23.1")
+    implementation("org.mongodb:mongodb-driver-kotlin-sync:5.1.2")
+
     // Note, if you develop a library, you should use compose.desktop.common.
     // compose.desktop.currentOs should be used in launcher-sourceSet
     // (in a separate module for demo project and in testMain).

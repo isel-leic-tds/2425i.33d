@@ -1,4 +1,4 @@
-package isel.tds.galo.ui
+package isel.tds.galo.view
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background

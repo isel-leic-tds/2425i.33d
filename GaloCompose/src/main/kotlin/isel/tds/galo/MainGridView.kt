@@ -9,8 +9,8 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import isel.tds.galo.model.*
-import isel.tds.galo.ui.GridView
-import isel.tds.galo.ui.StatusBar
+import isel.tds.galo.view.GridView
+import isel.tds.galo.view.StatusBar
 
 
 @Composable
@@ -28,7 +28,7 @@ private fun GridApp() {
                     }
                 }
             )
-            StatusBar(board)
+            StatusBar(board, null)
         }
     }
 }
