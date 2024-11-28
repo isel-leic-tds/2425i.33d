@@ -2,18 +2,19 @@ package isel.tds.galo.viewmodel
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import isel.tds.galo.model.*
 import isel.tds.galo.storage.GameSerializer
 import isel.tds.galo.storage.MongoDriver
 import isel.tds.galo.storage.MongoStorage
+import isel.tds.galo.storage.TextFileStorage
 import isel.tds.galo.view.InputName
 
 class AppViewModel(driver: MongoDriver) {
 
     private val storage =
-        MongoStorage<Name, Game>("games", driver, GameSerializer)
+    //TextFileStorage<Name, Game>("games", GameSerializer)
+    MongoStorage<Name, Game>("games", driver, GameSerializer)
 
     var clash by mutableStateOf(Clash(storage))   // Model state
     var viewScore by mutableStateOf(false)
@@ -52,26 +53,23 @@ class AppViewModel(driver: MongoDriver) {
     fun refresh() = exec(Clash::refresh)
     fun newBoard(): Unit = exec(Clash::newBoard)
 
-    fun start(name: Name? = null) {
-        if (name == null) inputName = InputName.ForStart
-        else {
-            cancelInput()
-            exec { startClash(name) }
-        }
+    fun openStartDialog() {
+        inputName = InputName.ForStart
     }
 
-
-    fun join(name: Name? = null) {
-        if (name == null) inputName = InputName.ForJoin
-        else {
-            cancelInput()
-            exec { joinClash(name) }
-        }
+    fun openJoinDialog() {
+        inputName = InputName.ForJoin
     }
 
-    fun cancelInput() {
-        inputName = null
+    fun closeStartOrJoinDialog() { inputName = null }
+
+    fun start(name: Name) {
+        closeStartOrJoinDialog()
+        exec { startClash(name) }
     }
 
-
+    fun join(name: Name) {
+        closeStartOrJoinDialog()
+        exec { joinClash(name) }
+    }
 }
