@@ -55,7 +55,13 @@ fun Clash.newBoard() = runOper {
 
 
 fun Clash.refresh() = runOper {
-    val gameAfter = gs.read(id) as Game
-    check(game.board!=gameAfter.board) { "No changes" }
+    val gameAfter = gs.read(id) as Game?  ?: throw GameDeletedException()
+    //check(game.board!=gameAfter.board) { "No changes" }
+    if (game.board == gameAfter.board) throw NoChangesException()
     gameAfter
 }
+
+class NoChangesException : IllegalStateException("No changes")
+class GameDeletedException : IllegalStateException("Game deleted")
+
+fun Clash.canNewBoard() = this is ClashRun && game.board is BoardWin

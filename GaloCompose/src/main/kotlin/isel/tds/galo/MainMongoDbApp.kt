@@ -15,7 +15,8 @@ import isel.tds.galo.viewmodel.AppViewModel
 @Preview
 private fun FrameWindowScope.GridApp(driver: MongoDriver, onExit: () -> Unit) {
 
-    var vm: AppViewModel = remember { AppViewModel(driver) }
+    val scope = rememberCoroutineScope()
+    var vm: AppViewModel = remember { AppViewModel(driver, scope) }
 
     MaterialTheme {
         MenuBar {
@@ -41,6 +42,7 @@ private fun FrameWindowScope.GridApp(driver: MongoDriver, onExit: () -> Unit) {
                 onAction= if (it== InputName.ForStart) vm::start else vm::join
         ) }
         vm.errorMessage?.let { ErrorDialog(it, onClose = vm::hideError) }
+        if (vm.isWaiting) waitingIndicator()
     }
 }
 
