@@ -14,6 +14,7 @@ class Score(val pointsA: Points, val pointsB: Points){
             pointsB == Points.GAME -> "Game B"
             else -> "${pointsA.value} - ${pointsB.value}"
         }
+
     val isGame: Boolean get() = pointsA == Points.GAME || pointsB == Points.GAME
 
     fun next(winner: Player): Score = when {

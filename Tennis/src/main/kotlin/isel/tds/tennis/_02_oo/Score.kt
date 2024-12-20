@@ -12,7 +12,7 @@ interface Score{
     val placard: String
 }
 
-private class Game(val winner: Player) : Score {
+private class Game(val winner: Player): Score {
     override fun next(winner: Player): Score {
         error("game over")
     }
@@ -20,12 +20,12 @@ private class Game(val winner: Player) : Score {
     override val isGame: Boolean get() = true
 }
 
-private class Advantage(val player: Player) : Score {
-    override fun next(winner: Player): Score = when {
-        winner == player -> Game(player)
+private class Advantage(val playerWithTheAdvantage: Player) : Score {
+    override fun next(winnerOfTheLastPoint: Player): Score = when {
+        winnerOfTheLastPoint == playerWithTheAdvantage -> Game(playerWithTheAdvantage)
         else -> Deuce()
     }
-    override val placard: String get() = "Advantage ${player.name}"
+    override val placard: String get() = "Advantage ${playerWithTheAdvantage.name}"
 }
 
 private class Deuce : Score {

@@ -1,6 +1,7 @@
 package isel.tds.tennis._01_simpleImplementationClass
 
 import isel.tds.isel.tds.tennis.Player
+import isel.tds.isel.tds.tennis.Points
 import isel.tds.isel.tds.tennis._01_simpleImplementationClass.initialScore
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -11,6 +12,8 @@ class ScoreTest_01_simpleImplementationClass {
     fun `Initial Score conditions`() {
         val score = initialScore()
         assertEquals("0 - 0", score.placard)
+        assertEquals(Points.LOVE, score.pointsA)
+        assertEquals(Points.LOVE, score.pointsB)
         assertFalse { score.isGame }
     }
 
